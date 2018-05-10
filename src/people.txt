@@ -1,0 +1,6 @@
+Alex Smith,25,M,student,VIC,person1.jpg
+Ben Turner,25,F,manager at Coles,VIC,person1.jpg
+Hannah White,25,F,student,VIC,person1.jpg,no
+Zoe Foster,25,M,student at RMIT,VIC,person1.jpg
+Mark Turner,25,M,student,VIC,person1.jpg
+John,25,M,student,VIC,person1.jpg
