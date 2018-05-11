@@ -21,7 +21,7 @@ public class DBConnect {
 		hsqlServer.start();// making a connection
 		try{Class.forName("org.hsqldb.jdbcDriver");
 		connection= 
-				DriverManager.getConnection("jdbc:hsqldb:TestDB", "sa", "123");
+				DriverManager.getConnection("jdbc:hsqldb:hsql://localhost", "sa", "123");
 		connection.prepareStatement(sql).execute();
 		//connection.prepareStatement("create table barcodes (id integer, barcode varchar(20) not null);").execute();
 		//connection.prepareStatement("insert into barcodes (id, barcode)"+ "values (1, '12345577');").execute();
