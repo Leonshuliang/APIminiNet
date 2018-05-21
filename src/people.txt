@@ -1,6 +1,9 @@
-Alex Smith,25,M,student,VIC,person1.jpg
-Ben Turner,25,F,manager at Coles,VIC,person1.jpg
-Hannah White,25,F,student,VIC,person1.jpg,no
-Zoe Foster,25,M,student at RMIT,VIC,person1.jpg
-Mark Turner,25,M,student,VIC,person1.jpg
-John,25,M,student,VIC,person1.jpg
+Alex Smith,21,M,./src/pic/ma1.jpg,student at RMIT,VIC
+Ben Turner,35,M,./src/pic/ma2.jpg,manager at Coles,VIC
+Hannah White,15,F,./src/pic/fc1.jpg,student at PLC,VIC
+Zoe Foster,28,F,./src/pic/fa1.jpg,Founder of ZFX,VIC
+Mark Turner,2,F,./src/pic/fc2.jpg,baby,VIC
+John,25,F,,Students,VIC
+John Legend,34,F,./src/pic/fc2.jpg,Manager,VIC
+Tina Dar,29,F,./src/pic/fc2.jpg,IT,VIC
+Mika Newman,38,M,./src/pic/fc2.jpg,Government,VIC
