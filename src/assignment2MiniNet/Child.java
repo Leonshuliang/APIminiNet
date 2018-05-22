@@ -1,15 +1,15 @@
 package assignment2MiniNet;
 
 /**
- * teenager's age is between 3-16 includes parents and friends
  *
- * @author Yongqi Zhong 3691039
- * @version 1.0
- * @since 2018-03-23
+ * The people under 18 are child includes 1-3 young child and 3-18 child
+ * 
+ * * @author Yongqi Zhong 3691039
+ * @version 2.0
+ * @since 20-05-2018
  */
 
 public class Child extends Person {
-	private int id;// id of the people in this social network
 	private String name;// name of the people in this social network
 	private String age;// age of the people in this social network
 	private String gender;// gender of the people in this social network
@@ -17,7 +17,7 @@ public class Child extends Person {
 	private String status;// status of person, like work
 	private String state;// friends of person
 
-	public Child(int id, String name, String age, String gender, String pic, String status, String state) {
+	public Child(String name, String age, String gender, String pic, String status, String state) {
 		super(name, age, gender, pic, status, state);
 
 	}

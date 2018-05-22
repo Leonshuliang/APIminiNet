@@ -1,26 +1,34 @@
 package assignment2MiniNet;
 
+/**
+ *when double click a row in table, person profile will show up 
+ *
+ * @author Shuliang Xin 3647666
+ * @version 2.0
+ * @since 20-05-2018
+ */
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 
 public class ShowPersonProfile extends JDialog {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
-	// set all components in swing
+	/**
+	 * set all components in swing Button textfield and panel
+	 */
 	JButton jb1, jb2, jb3, jb4, jb5, jb6;
 	JTextField jtf1, jtf2, jtf3, jtf4, jtf5, jtf6;
 	JPanel jp1, jp2, jp3;
 
 	public ShowPersonProfile(MouseAdapter mouseAdapter, String title, boolean modal, Driver sm, int rowNums) {
-		super();// "ID","Name","Age","Gender","Pic","Status"
+		super();// father class onstructor
 
 		JPanel panel = new JPanel();
+		// Label name is mininet menu
 		JLabel TitleLabel = new JLabel("MiniNet Menu：");
 		panel.setLayout(null);
-
+		// set size
 		TitleLabel.setBounds(100, 10, 220, 40);
 
 		TitleLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -40,7 +48,9 @@ public class ShowPersonProfile extends JDialog {
 
 		jb6 = new JButton("Picture");
 
-		// put all buttons in panel
+		/*
+		 * put all buttons in panel and also set all buttons size and location
+		 */
 		jb1.setBounds(20, 40, 80, 30);
 		panel.add(jb1);
 
@@ -59,14 +69,16 @@ public class ShowPersonProfile extends JDialog {
 		jb6.setBounds(20, 190, 80, 30);
 		panel.add(jb6);
 
-		//
+		// get all new text fields
 		jtf1 = new JTextField();
 		jtf2 = new JTextField();
 		jtf3 = new JTextField();
 		jtf4 = new JTextField();
 		jtf5 = new JTextField();
 		jtf6 = new JTextField();
-
+		/*
+		 * set value for all text field and set text fields size and location
+		 */
 		jtf1.setText((String) sm.getValueAt(rowNums, 0));
 		jtf1.setBounds(110, 40, 220, 30);
 		jtf2.setText((String) sm.getValueAt(rowNums, 1));
@@ -77,7 +89,8 @@ public class ShowPersonProfile extends JDialog {
 		jtf4.setBounds(110, 130, 220, 30);
 		jtf5.setText((String) sm.getValueAt(rowNums, 5));
 		jtf5.setBounds(110, 160, 220, 30);
-
+		
+		// if withou picture No piture message will come up
 		String picTxt = (String) sm.getValueAt(rowNums, 3);
 		if (picTxt.isEmpty()) {
 			System.out.println(picTxt);
@@ -85,6 +98,7 @@ public class ShowPersonProfile extends JDialog {
 			jtf6.setBounds(110, 190, 220, 30);
 			panel.add(jtf6);
 		} else {
+			// get image from file location
 			ImageIcon ii = new ImageIcon((String) sm.getValueAt(rowNums, 3));
 			ii.setImage(ii.getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT));
 			JLabel label = new JLabel(ii);
@@ -98,7 +112,7 @@ public class ShowPersonProfile extends JDialog {
 		jtf3.setEditable(false);
 		jtf4.setEditable(false);
 		jtf5.setEditable(false);
-
+		// put all text fields into panel
 		panel.add(jtf1);
 		panel.add(jtf2);
 		panel.add(jtf3);
@@ -106,11 +120,12 @@ public class ShowPersonProfile extends JDialog {
 		panel.add(jtf5);
 
 		this.add(panel);
-
+		// set this dialog size and location
 		this.setBounds(400, 150, 400, 550);
-
+		// set dialog name
 		this.setTitle("MiniNet");
 
+		//set visible
 		this.setVisible(true);
 
 		this.setResizable(false);

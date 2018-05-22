@@ -1,11 +1,11 @@
 package assignment2MiniNet;
 
 /**
- * dependent is abstract class implements methods in class person
+ *human is abstract class includes basic information of human
  * 
  * @author Yongqi Zhong 3691039
- * @version 1.0
- * @since 2018-03-20
+ * @version 2.0
+ * @since 20-05-2018
  */
 public abstract class Human {
 
@@ -13,6 +13,7 @@ public abstract class Human {
 	private String age;// age of the person in this social network
 	private String gender;// gender of the people in this social network
 
+	// default constructor
 	public Human() {
 	}
 

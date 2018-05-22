@@ -1,5 +1,12 @@
 package assignment2MiniNet;
 
+/**
+ *Dialog for make relation 
+ *
+ * @author Shuliang Xin 3647666
+ * @version 2.0
+ * @since 20-05-2018
+ */
 import javax.swing.*;
 
 import exception.NotToBeClassmatesException;
@@ -101,6 +108,7 @@ public class MakeRelationDIalog extends JDialog implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		// get which button been clicked by getSource()
 		if (e.getSource() == jb1) {
 			age1 = Integer.parseInt(ageStr1);
 			age2 = Integer.parseInt(ageStr2);
@@ -147,22 +155,27 @@ public class MakeRelationDIalog extends JDialog implements ActionListener {
 		}
 	}
 
+	// make friends after choose friends box
 	public void makeFriends() throws Exception {
 
 		String relation = driver.checkRelation(name1, name2);
+		// young child can not have friends
 		if (age1 < 3 || age2 < 3) {
 			JOptionPane.showMessageDialog(this, "Young child can not have friends");
 		}
 
+		// and adult and a child can not have friends
 		else if ((age1 <= 16 && age2 > 16) || (age1 > 16 && age2 <= 16)) {
 			throw new NotToBeFriendsException("An adult and a child can not be friends");
 		} else if (age1 <= 16 && age2 <= 16 && Math.abs(age1 - age2) > 3) {
 			throw new NotToBeFriendsException("Two children whose age gap can not be larger than 3");
 		}
 
+		// if they are already friends you dont have to make a friends ralation
 		else if (relation.equalsIgnoreCase("friends")) {
 			JOptionPane.showMessageDialog(this, "They are already friends");
 		} else {
+			// driver call make relation method to insert data into database
 			if (driver.makeRelation(name1, name2, "friends")) {
 				JOptionPane.showMessageDialog(this, "They are  friends now");
 			}
@@ -170,14 +183,19 @@ public class MakeRelationDIalog extends JDialog implements ActionListener {
 
 	}
 
+	// make couple relation after choosing couple button
+
 	public void makeCouple() throws NotToBeCoupledException {
 		String relation = driver.checkRelation(name1, name2);
 		String ifInCouple = driver.checkIfInCouple(name1, name2);
 		System.out.println(ifInCouple);
 
+		// child do not have couple
 		if (age1 < 18 || age2 < 18) {
 			throw new NotToBeCoupledException("One person is not adult, cant to be made as couple");
-		} else if (relation.equalsIgnoreCase("couple")) {
+		}
+		// if they are already couple you do not need to make another relation
+		else if (relation.equalsIgnoreCase("couple")) {
 			JOptionPane.showMessageDialog(this, "They are already couple");
 		} else if (ifInCouple != "Notcouple") {
 			if (ifInCouple.equalsIgnoreCase("couple")) {
@@ -193,6 +211,8 @@ public class MakeRelationDIalog extends JDialog implements ActionListener {
 			}
 		}
 	}
+
+	// make colleagues after choosing colleagues button
 
 	public void makeColleagues() throws Exception {
 		String relation = driver.checkRelation(name1, name2);

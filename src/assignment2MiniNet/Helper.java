@@ -1,40 +1,21 @@
 package assignment2MiniNet;
 
+/**
+ * 
+ *Helper includes regular expression matching and read file method 
+ *
+ * @author Shuliang Xin 3647666
+ * @version 2.0
+ * @since 20-05-2018
+ */
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-/**
-* OptionNoRegex is only for all the ergodic process 
-* of option number in this project 
-* @author  Shuliang Xin 3647666
-* @version 1.0
-* @since   2018-03-20 
-*/
 import java.util.Scanner;
 
-public class OptionNoRegex {
-	// verify the option number
-
-	public int menuRegex(int min, int max) {
-		String regex = "[0-9]{1}";// menu is only one-digit between 1-9
-		Scanner sc = new Scanner(System.in);
-		while (true) {
-			String input = sc.nextLine();
-			if (input.matches(regex)) {
-				int key = Integer.parseInt(input);
-				if (key >= min && key <= max) {
-					return key;
-				} else {
-					System.out.println("The number you are entering is uncorrect!");
-				}
-			} else {
-				System.out.println("Please input a number!");
-			}
-		}
-
-	}
+public class Helper {
 
 	// verify name
 	@SuppressWarnings("resource")
@@ -46,14 +27,13 @@ public class OptionNoRegex {
 			if (str.matches(pattern)) {
 				return str;
 			} else {
-				System.out.println("Please Enter valid name");
 				str = sc.nextLine();
 				continue;
 			}
 		}
 	}
-	// verify age
 
+	// verify age
 	public String ageRegex(String age) {
 		String pattern = "^([0-9]|[0-9]{2}|100)$";// only between 0-99 is valid
 		String str = age;
@@ -62,29 +42,14 @@ public class OptionNoRegex {
 			if (str.matches(pattern)) {
 				return str;
 			} else {
-				System.out.println("Invalid age,Please enter again");
 				str = sc.nextLine();
 				continue;
 			}
 		}
 	}
 
-	// verify of gender
-	public String sexRegex(String sex) {
-		String pattern = "[FM]";// F is female M is male
-		String str = sex;
-		Scanner sc = new Scanner(System.in);
-		while (true) {
-			if (str.matches(pattern)) {
-				return str;
-			} else {
-				System.out.println("Please Enter M on behalf of Male,F on behalf Female");
-				str = sc.nextLine();
-				continue;
-			}
-		}
-	}
-
+	// Read people.txt from the location, if no file will call the data from
+	// database
 	public void readFile() {
 
 		File file = new File("./src/people.txt");
@@ -93,10 +58,12 @@ public class OptionNoRegex {
 			return;
 		}
 		try {
+			// define reader to read file
 			FileReader fr = new FileReader(file);
 			BufferedReader br = new BufferedReader(fr);
 			String lineText;
 			lineText = br.readLine();
+			//only read with real context 
 			while (lineText != null) {
 				creatInfo(lineText);
 				lineText = br.readLine();
@@ -109,6 +76,7 @@ public class OptionNoRegex {
 
 	}
 
+	// read all the context into each line then split them by "，"
 	public void creatInfo(String text)
 
 	{
@@ -116,10 +84,8 @@ public class OptionNoRegex {
 			return;
 		if ("".equals(text))
 			return;
-
-		String[] pswdUsername = text.split(",");
-		if (pswdUsername == null || pswdUsername.length < 6) {
-			System.out.println("Please check content form in your file");
+		String[] inforMation = text.split(",");
+		if (inforMation == null || inforMation.length < 6) {
 			return;
 		} else {
 

@@ -1,11 +1,12 @@
 package assignment2MiniNet;
 
 /**
- * adult is over 16 has friends
+ * 
+ * Adults are the people whose age over 18
  *
  * @author Yongqi Zhong 3691039
- * @version 1.0
- * @since 2018-03-23
+ * @version 2.0
+ * @since 20-05-2018
  */
 public class Adult extends Person {
 
@@ -16,9 +17,10 @@ public class Adult extends Person {
 	private String status;// status of person, like work
 	private String state;// state of where is this person from
 
+	//constructor
 	public Adult(String name, String age, String gender, String pic, String status, String state) {
-super(name, age, gender, pic, status, state);
-		
+		super(name, age, gender, pic, status, state);
+
 	}
 
 	public String getName() {

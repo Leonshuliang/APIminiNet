@@ -1,17 +1,16 @@
 package assignment2MiniNet;
 
+/**
+ * 
+ * MainFram is going to create main container to contain all components
+ * 
+ * @author Shuliang Xin 3647666
+ * @version 2.0
+ * @since 20-05-2018
+ */
 import javax.swing.*;
-
-import com.sun.javafx.geom.Ellipse2D;
-
 import exception.NoParentException;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
@@ -29,7 +28,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	// rowData store data
 	// store all columns name in columnNames
 	Vector rowData, columnNames;
-	static OptionNoRegex read = new OptionNoRegex();
+	static Helper read = new Helper();
 
 	// consturctor
 	public MainFrame() throws IOException {
@@ -71,14 +70,16 @@ public class MainFrame extends JFrame implements ActionListener {
 		jp2.add(jb6);
 		jp2.add(jb7);
 		jp2.add(jb9);
-		// creat a instance of PeopleTable to get the table
 
+		// creat a instance of Driver to get the table
 		tb = new Driver();
-
 		tb.getPeople();
+		// jt is instance of driver
 		jt = new JTable(tb);
+		// if double click table profile page will show up
 		jt.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				// get row selected
 				int rowNum = jt.getSelectedRow();
 				if (e.getClickCount() >= 2) {
 					new ShowPersonProfile(this, "Modify information", true, tb, rowNum);
@@ -93,6 +94,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		this.add(jp1, "North");
 		this.add(jp2, "South");
 
+		// set size
 		this.setSize(900, 500);
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -152,17 +154,21 @@ public class MainFrame extends JFrame implements ActionListener {
 
 			String personDelName = (String) tb.getValueAt(rowNum, 0);
 
+			//
+
 			if (tb.checkIfCanDel(personDelName)) {
 				JOptionPane.showMessageDialog(this, "This person in a relationship, you can not delete");
 				return;
 			}
 
+			// call delete method delPerson
 			if (tb.delPerson(personDelName)) {
 				JOptionPane.showMessageDialog(this, "Delete successfully");
 
 				tb.listPeopleBySql();
 				jt.setModel(tb);
 			} else {
+				// if delete fail there is a message show up
 				JOptionPane.showMessageDialog(this, "Delete fail");
 
 			}
@@ -241,12 +247,13 @@ public class MainFrame extends JFrame implements ActionListener {
 
 			int[] rowNum = this.jt.getSelectedRows();
 			if (rowNum.length != 1) {
-				// Message
+				// Message will come up if user did not chooss a child
 				JOptionPane.showMessageDialog(this, "Please choose one child");
 				return;
 			}
 			int ageChild = Integer.parseInt((String) tb.getValueAt(rowNum[0], 1));
 			if (ageChild > 18) {
+				//Message will come up if chose over 1 child
 				JOptionPane.showMessageDialog(this, "Please choose one child");
 				return;
 			}
@@ -254,12 +261,14 @@ public class MainFrame extends JFrame implements ActionListener {
 			ArrayList<String> parentsArr = tb.findParents(childName);
 			if (parentsArr.size() == 0 || parentsArr.size() == 1) {
 				try {
+					//Throw exception when a child only have one parent
 					throw new NoParentException("This child only have one parent or no parent");
 				} catch (NoParentException e1) {
 					JOptionPane.showMessageDialog(this, e1.getMessage());
 
 				}
 			} else if (parentsArr.size() == 2) {
+				//find out child's parents
 				JOptionPane.showMessageDialog(this, "Parents are " + parentsArr.get(0) + " and " + parentsArr.get(1));
 			}
 

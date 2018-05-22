@@ -1,5 +1,11 @@
 package assignment2MiniNet;
-
+/**
+ * Driver includes most methods and define SQl statements for DBConnect
+ * 
+ * @author Shuliang Xin 3647666
+ * @version 2.0
+ * @since 20-05-2018
+ */
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -29,8 +35,8 @@ public class Driver extends AbstractTableModel {
 		return db.updateExcute(sql, paras);
 	}
 
+	// add a person into people table
 	public boolean addPerson(String sql, Person person) {
-		//
 		String[] paras = { person.getName(), person.getAge(), person.getGender(), person.getPic(), person.getStatus(),
 				person.getState() };
 		db = new DBConnect();
@@ -72,7 +78,7 @@ public class Driver extends AbstractTableModel {
 		return db.updateExcute(sql, paraNames);
 	}
 
-	// delete a person
+	// delete a person by person's name 
 	public boolean delPerson(String strDelPerson) {
 		// sql for deleting a person
 		String sql = "Delete from people where name = ?";
@@ -106,6 +112,7 @@ public class Driver extends AbstractTableModel {
 	public ArrayList getFriends(String name, String nameCheck) {
 		// List allFriendslist = (List) new ArrayList();
 		ArrayList listAllFriends = new ArrayList();
+		//get the first person's friends
 		String sqlGetFriends1 = "select NameF from relation where (NameS = ? and Relation = 'friends')";
 		db = new DBConnect();
 		String[] paras = { name };
@@ -114,7 +121,7 @@ public class Driver extends AbstractTableModel {
 		ResultSet rs2 = db.checkRelation(sqlGetFriends2, paras);
 
 		try {
-
+			// put all friends into list
 			while (rs1.next()) {
 
 				listAllFriends.add(rs1.getString(1));
@@ -238,26 +245,29 @@ public class Driver extends AbstractTableModel {
 		}
 	}
 
+	/*
+	 * search one person by name then put all people in table if the check field is
+	 * empty will list all people
+	 */
 	public void listPByFileName(String name) throws IOException {
 		String personName = name;
 		columnNames = new Vector(); // "ID","Name","Age","Gender","Pic","Status"
 		// set all columns name
-		// columnNames.add("ID");
 		columnNames.add("Name");
 		columnNames.add("Age");
 		columnNames.add("Gender");
 		columnNames.add("Status");
 		columnNames.add("State");
 		columnNames.add("Pic");
-
+		// rowData is storage for people's information
 		rowData = new Vector();
-
+		// people.txt is the file for storage
 		FileReader reader = new FileReader("./src/people.txt");
 		BufferedReader br = new BufferedReader(reader);
-
-		// each line read in file to the end, then split every line by every coma
+		// put eachline into eachLine
 		String eachLine = null;
 
+		// each line read in file to the end, then split every line by every coma
 		if (personName.isEmpty()) {
 			while ((eachLine = br.readLine()) != null) {
 
@@ -266,6 +276,7 @@ public class Driver extends AbstractTableModel {
 				for (int i = 0; i < temp.length; i++) {
 					row.add(temp[i]);
 				}
+				// add each row into rowdata
 				rowData.add(row);
 			}
 		} else {
@@ -283,8 +294,10 @@ public class Driver extends AbstractTableModel {
 		}
 	}
 
+	// choose a child, then find this child's parent
 	public ArrayList<String> findParents(String childName) {
 		String relation = null;
+		// sql to find parent
 		String sqlCheckRelation = "select NameF,NameS from relation where NameF = ? or NameS = ?";
 		String[] paras = { childName, childName };
 		// list[] parents = null;
@@ -293,7 +306,7 @@ public class Driver extends AbstractTableModel {
 		ResultSet rs = db.checkRelation(sqlCheckRelation, paras);
 		try {
 			while (rs.next()) {
-				// relation = rs.getString(1);
+				// put parents into parents list
 				if (rs.getString(1).equals(childName)) {
 					parents.add(rs.getString(2));
 				}
